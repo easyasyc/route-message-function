@@ -5,6 +5,12 @@ Parameters:
   QueueName:
     Type: String
     Description: Name for SQS queue
+  Environment:
+    Type: String
+    Description: Environment of deployed application
+  RouteURL:
+    Type: String
+    Description: URL of app to route message to
 Resources:
   MySQSQueueFunction:
     Type: AWS::Serverless::Function
@@ -13,6 +19,12 @@ Resources:
       CodeUri: main.zip
       Runtime: go1.x
       MemorySize: 128
+      Timeout: 3
+      Environment:
+        Variables:
+          Environment: !Ref Environment
+          Region: !Sub ${AWS::Region}
+          RouteURL: !Ref RouteURL
       Events:
         MySQSEvent:
           Type: SQS

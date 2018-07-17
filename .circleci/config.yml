@@ -7,6 +7,7 @@ jobs:
     environment:
       TEST_RESULTS: /tmp/test-results
       STACK_NAME: route-message-function-ci
+      TEST_STACK_NAME: dispatcher-api-ci-test
     steps:
     - checkout
     - run: mkdir -p $TEST_RESULTS
@@ -19,7 +20,7 @@ jobs:
           aws configure set default.region us-east-1
           aws configure set default.output json
     - run: chmod +x deploy.sh
-    - run: ./deploy.sh ${STACK_NAME} ${DEPLOYMENT_BUCKET}
+    - run: ./deploy.sh ${STACK_NAME} ${DEPLOYMENT_BUCKET} ${TEST_STACK_NAME} 
     # - run: 
     #     name: Integration tests
     #     command: |
