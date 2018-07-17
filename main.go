@@ -4,17 +4,18 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-type Message struct {
-	Message string `json:"message"`
-}
+func handler(ctx context.Context, sqsEvent events.SQSEvent) error {
+	for _, message := range sqsEvent.Records {
+		fmt.Printf("The message %s for event source %s = %s \n", message.MessageId, message.EventSource, message.Body)
+	}
 
-func HandleRequest(ctx context.Context, message Message) (string, error) {
-	return fmt.Sprintf("Hello %s!", message.Message), nil
+	return nil
 }
 
 func main() {
-	lambda.Start(HandleRequest)
+	lambda.Start(handler)
 }

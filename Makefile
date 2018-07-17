@@ -30,4 +30,5 @@ deploy:
 
 dependencies: 
 	@go get github.com/aws/aws-lambda-go/lambda
+	@go get github.com/aws/aws-lambda-go/events
 
