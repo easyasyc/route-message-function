@@ -48,6 +48,7 @@ func main() {
 
 func routeMessage(message Message, url string) error {
 
+	log.Println("about to send message ", message, " to url ", url)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(message.Message)))
 
 	req.Header.Set("Content-Type", "application/json")
