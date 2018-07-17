@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda template with SQS trigger
+Parameters:
+  QueueName:
+    Type: String
+    Description: Name for SQS queue
+Resources:
+  MySQSQueueFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: main
+      CodeUri: main.zip
+      Runtime: go1.x
+      MemorySize: 128
+      Events:
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt MySqsQueue.Arn
+            BatchSize: 10
+
+  MySqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Ref QueueName
