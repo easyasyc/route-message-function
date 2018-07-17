@@ -7,7 +7,7 @@ jobs:
     environment:
       TEST_RESULTS: /tmp/test-results
       STACK_NAME: route-message-function-ci
-      TEST_STACK_NAME: dispatcher-api-ci-test
+      TEST_STACK_NAME: testapistack
     steps:
     - checkout
     - run: mkdir -p $TEST_RESULTS
