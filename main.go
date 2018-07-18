@@ -48,13 +48,14 @@ func main() {
 
 func routeMessage(message Message, url string) error {
 
-	log.Println("about to send message ", message, " to url ", url)
 	out, err := json.Marshal(message)
 
 	if err != nil {
 		return err
 	}
 	jsonString := string(out)
+	log.Println("about to send message ", jsonString, " to url ", url)
+
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(jsonString)))
 
 	req.Header.Set("Content-Type", "application/json")
